@@ -1,16 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards, Headers } from '@nestjs/common';
 import { CharactersService } from './characters.service';
 import { CreateCharacterDto } from './dto/create-character.dto';
 import { UpdateCharacterDto } from './dto/update-character.dto';
 import { AuthGard } from 'src/users/auth.gard';
+import { Request } from 'express'
+import decodeToken from './lib/decodeToken.lib';
 
 @Controller('characters')
 export class CharactersController {
   constructor(private readonly charactersService: CharactersService) {}
 
   @Post()
-  create(@Body() createCharacterDto: CreateCharacterDto) {
-    return this.charactersService.create(createCharacterDto);
+  create(@Body() createCharacterDto: CreateCharacterDto,@Headers('authorization') authorization: string) {
+    
+    return this.charactersService.create(createCharacterDto, authorization);
   }
 
   @Get('all/')

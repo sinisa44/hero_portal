@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateCharacterDto } from './dto/create-character.dto';
 import { UpdateCharacterDto } from './dto/update-character.dto';
 
@@ -8,6 +8,8 @@ import { MarvelOptions } from 'interfaces/character.interface';
 import { Character } from './schemas/character.schema';
 import {InjectModel} from '@nestjs/mongoose'
 import { Model } from 'mongoose';
+import {Request} from 'express'
+import decodeToken from './lib/decodeToken.lib';
 
 @Injectable()
 export class CharactersService {
@@ -16,8 +18,16 @@ export class CharactersService {
   ){}
 
 
- async create(createCharacterDto: CreateCharacterDto): Promise<Character> {
-    const character =  await this.characterModel.create(createCharacterDto); 
+ async create(createCharacterDto: CreateCharacterDto, authorization): Promise<Character>  {
+  const {sub} = decodeToken(authorization)
+
+  const findCharacter = await this.characterModel.findOne({name: createCharacterDto.name});
+
+  if(findCharacter) {
+    throw new ConflictException({error:`${findCharacter?.name} is already saved as favorite `})
+  } 
+
+    const character =  await this.characterModel.create({...createCharacterDto, user_id: sub}); 
   
     return character;
   }

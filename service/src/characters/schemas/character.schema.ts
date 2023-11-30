@@ -7,6 +7,9 @@ export class Character extends Document {
   id: number;
 
   @Prop()
+  user_id:string
+
+  @Prop()
   name: string;
 
   @Prop()
@@ -54,6 +57,7 @@ export class Character extends Document {
       resourceURI: string;
       name: string;
       type: string;
+
     }>;
     returned: number;
   };
