@@ -1,11 +1,13 @@
 
 
-import { Controller, Body, Post, Get, ValidationPipe } from '@nestjs/common';
+import { Controller, Body, Post, Get, ValidationPipe, UseFilters } from '@nestjs/common';
 
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/crate-user.dto';
+import { MongoExceptionFilter } from 'mongoException/mongoException';
 
 @Controller('users')
+@UseFilters(MongoExceptionFilter)
 export class UsersController {
     constructor(private userService:UsersService) {}
 
