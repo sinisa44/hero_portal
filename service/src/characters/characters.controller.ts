@@ -17,23 +17,20 @@ export class CharactersController {
   }
 
   @Get('all/')
-  @UseGuards(AuthGard)
+
   findAll(@Query('limit') limit:number, @Query('offset') offset:number ) {
     return this.charactersService.findAll({limit, offset});
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.charactersService.findOne(+id);
+  @Get(":id")
+  findById(@Param('id') id:number) {
+    return this.charactersService.findById(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCharacterDto: UpdateCharacterDto) {
-    return this.charactersService.update(+id, updateCharacterDto);
+  @Get('favorite')
+  @UseGuards(AuthGard)
+  findFavorite(@Headers('authorizaton') authorization:string) {
+    return this.charactersService.findFavorite(authorization);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.charactersService.remove(+id);
-  }
 }

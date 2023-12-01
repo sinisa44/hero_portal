@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCharacterDto } from './dto/create-character.dto';
 import { UpdateCharacterDto } from './dto/update-character.dto';
 
@@ -17,6 +17,31 @@ export class CharactersService {
   private characterModel: Model<Character>,
   ){}
 
+  
+  async findAll(marvelOptions: MarvelOptions): Promise<Character[]> {
+
+    const data = await fetch(
+      `https://gateway.marvel.com/v1/public/characters${generateMarvelURL(
+        marvelOptions,
+      )}`,
+    );
+
+    return await data.json();
+  }
+
+
+  async findById( id : number): Promise<Character>{
+    const character = await fetch(
+      `https://gateway.marvel.com/v1/public/characters/${id}${generateMarvelURL({offset:0, limit:1})}`
+    )
+
+    if(!character) {
+      throw new NotFoundException({error:'no character found'})
+    } 
+
+    return await character.json();
+  }
+
 
  async create(createCharacterDto: CreateCharacterDto, authorization): Promise<Character>  {
   const {sub} = decodeToken(authorization)
@@ -32,26 +57,16 @@ export class CharactersService {
     return character;
   }
 
-  async findAll(marvelOptions: MarvelOptions): Promise<Character[]> {
+  async findFavorite(authorization): Promise<Character[]>{
+    const {sub} = decodeToken(authorization);
 
-    const data = await fetch(
-      `https://gateway.marvel.com/v1/public/characters${generateMarvelURL(
-        marvelOptions,
-      )}`,
-    );
+    const findFavoriteCharacters = this.characterModel.find({user_id: sub});
 
-    return await data.json();
-  }
+    if(!findFavoriteCharacters) {
+      throw new NotFoundException({error:"no favorite character"})
+    } 
 
-  findOne(id: number) {
-    return `This action returns a #${id} character`;
-  }
+    return findFavoriteCharacters;
 
-  update(id: number, updateCharacterDto: UpdateCharacterDto) {
-    return `This action updates a #${id} character`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} character`;
   }
 }

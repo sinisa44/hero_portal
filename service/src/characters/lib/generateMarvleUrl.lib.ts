@@ -1,7 +1,7 @@
 import { MarvelOptions } from 'interfaces/character.interface';
 import * as crypto from 'crypto'
 
-const generateMarvelURL = (options: MarvelOptions): string => {
+const generateMarvelURL = (options?: MarvelOptions): string => {
   const publicKey = process.env.MARVEL_PUBLIC_KEY;
   const privateKey = process.env.MARVEL_PRIVATE_KEY;
 
