@@ -9,6 +9,7 @@ import {
   Query,
   UseGuards,
   Headers,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CharactersService } from './characters.service';
 import { CreateCharacterDto } from './dto/create-character.dto';
@@ -41,7 +42,8 @@ export class CharactersController {
   
   @Post('favorite')
   create(
-    @Body() createCharacterDto: CreateCharacterDto,
+    @Body(ValidationPipe) createCharacterDto: CreateCharacterDto,
+
     @Headers('authorization') authorization: string,
   ) {
     return this.charactersService.createFavorite(

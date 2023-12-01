@@ -1,69 +1,80 @@
-import { IsNumber, IsString, IsArray, ValidateNested } from 'class-validator';
+import { IsNumber, IsString, IsArray, ValidateNested, isNumber } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class ThumbnailDto {
+
+class ItemDto{
   @IsString()
-  path: string;
+  resourceURI:string
 
   @IsString()
-  extension: string;
+  name:string
 }
 
-export class ItemDto {
+class ThumbnailDto{
   @IsString()
-  resourceURI: string;
+  path:string
 
   @IsString()
-  name: string;
+  extension:string
 }
 
-export class CreateCharacterDto {
+class UrlDto{
+  @IsString()
+  type:string
+  
+  @IsString()
+  url: string
+}
+
+class ResourceDto{
   @IsNumber()
-  id: number;
+  available: number
 
   @IsString()
-  name: string;
+  collectionURI: string
+
+  @ValidateNested()
+  @Type(() => ItemDto)
+  items:ItemDto[]
+
+  @IsNumber()
+  returned: number
+}
+
+export class CreateCharacterDto{
+  @IsNumber()
+  id:number
 
   @IsString()
-  description: string;
+  name:string
 
   @IsString()
-  modified: string;
+  description:string
+
+  @IsString()
+  modified: string
 
   @ValidateNested()
   @Type(() => ThumbnailDto)
-  thumbnail: ThumbnailDto;
+  thumbnail:ThumbnailDto
+
 
   @IsString()
-  resourceURI: string;
-
-  @IsNumber()
-  available: number;
-
-  @IsString()
-  collectionURI: string;
+  resourceURI: string
 
   @ValidateNested()
-  @Type(() => ItemDto)
-  comics: ItemDto[];
-
-  @IsNumber()
-  returned: number;
+  @Type(() => ResourceDto)
+  comics:ResourceDto[]
 
   @ValidateNested()
-  @Type(() => ItemDto)
-  series: ItemDto[];
+  @Type(() => ResourceDto)
+  series:ResourceDto[]
 
   @ValidateNested()
-  @Type(() => ItemDto)
-  stories: ItemDto[];
+  @Type(() => ResourceDto)
+  events:ResourceDto[]
 
-  @IsArray()
-  events: any[];
-
-  @IsArray()
-  urls: Array<{
-    type: string;
-    url: string;
-  }>;
+  @ValidateNested()
+  @Type(() => UrlDto)
+  urls:UrlDto[]
 }

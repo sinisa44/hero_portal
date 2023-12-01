@@ -1,121 +1,51 @@
 {
-  "_id": { "$oid": "6482d9f7796ee023eefa3678" },
-  "id": { "$numberInt": "1017100" },
-  "name": "A-Bomb (HAS)",
-  "description": "Rick Jones has been Hulk's best bud since day one, but now he's more than a friend...he's a teammate! Transformed by a Gamma energy explosion, A-Bomb's thick, armored skin is just as strong and powerful as it is blue. And when he curls into action, he uses it like a giant bowling ball of destruction! ",
-  "modified": "2013-09-18T15:54:04-0400",
+  "id": 1010354,
+  "name": "Adam Warlock",
+  "description": "Adam Warlock is an artificially created human who was born in a cocoon at a scientific complex called The Beehive.",
+  "modified": "2013-08-07T13:49:06-0400",
   "thumbnail": {
-    "path": "http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16",
-    "extension": "jpg",
-    "_id": { "$oid": "6482d9f7796ee023eefa3679" }
+      "path": "http://i.annihil.us/u/prod/marvel/i/mg/a/f0/5202887448860",
+      "extension": "jpg"
   },
-  "resourceURI": "http://gateway.marvel.com/v1/public/characters/1017100",
+  "resourceURI": "http://gateway.marvel.com/v1/public/characters/1010354",
   "comics": {
-    "available": { "$numberInt": "4" },
-    "collectionURI": "http://gateway.marvel.com/v1/public/characters/1017100/comics",
-    "items": [
-      {
-        "resourceURI": "http://gateway.marvel.com/v1/public/comics/47176",
-        "name": "FREE COMIC BOOK DAY 2013 1 (2013) #1",
-        "_id": { "$oid": "6482d9f7796ee023eefa367b" }
-      },
-      {
-        "resourceURI": "http://gateway.marvel.com/v1/public/comics/40632",
-        "name": "Hulk (2008) #53",
-        "_id": { "$oid": "6482d9f7796ee023eefa367c" }
-      },
-      {
-        "resourceURI": "http://gateway.marvel.com/v1/public/comics/40630",
-        "name": "Hulk (2008) #54",
-        "_id": { "$oid": "6482d9f7796ee023eefa367d" }
-      },
-      {
-        "resourceURI": "http://gateway.marvel.com/v1/public/comics/40628",
-        "name": "Hulk (2008) #55",
-        "_id": { "$oid": "6482d9f7796ee023eefa367e" }
-      }
-    ],
-    "returned": { "$numberInt": "4" },
-    "_id": { "$oid": "6482d9f7796ee023eefa367a" }
+      "available": 201,
+      "collectionURI": "http://gateway.marvel.com/v1/public/characters/1010354/comics",
+      "items": [
+          {
+              "resourceURI": "http://gateway.marvel.com/v1/public/comics/105140",
+              "name": "Adam Warlock Omnibus (Trade Paperback)"
+          }
+      ],
+      "returned": 20
   },
   "series": {
-    "available": { "$numberInt": "2" },
-    "collectionURI": "http://gateway.marvel.com/v1/public/characters/1017100/series",
-    "items": [
-      {
-        "resourceURI": "http://gateway.marvel.com/v1/public/series/17765",
-        "name": "FREE COMIC BOOK DAY 2013 1 (2013)",
-        "_id": { "$oid": "6482d9f7796ee023eefa3680" }
-      },
-      {
-        "resourceURI": "http://gateway.marvel.com/v1/public/series/3374",
-        "name": "Hulk (2008 - 2012)",
-        "_id": { "$oid": "6482d9f7796ee023eefa3681" }
-      }
-    ],
-    "returned": { "$numberInt": "2" },
-    "_id": { "$oid": "6482d9f7796ee023eefa367f" }
-  },
-  "stories": {
-    "available": { "$numberInt": "7" },
-    "collectionURI": "http://gateway.marvel.com/v1/public/characters/1017100/stories",
-    "items": [
-      {
-        "resourceURI": "http://gateway.marvel.com/v1/public/stories/92078",
-        "name": "Hulk (2008) #55",
-        "_id": { "$oid": "6482d9f7796ee023eefa3682" }
-      },
-      {
-        "resourceURI": "http://gateway.marvel.com/v1/public/stories/92079",
-        "name": "Interior #92079",
-        "_id": { "$oid": "6482d9f7796ee023eefa3683" }
-      },
-      {
-        "resourceURI": "http://gateway.marvel.com/v1/public/stories/92082",
-        "name": "Hulk (2008) #54",
-        "_id": { "$oid": "6482d9f7796ee023eefa3684" }
-      },
-      {
-        "resourceURI": "http://gateway.marvel.com/v1/public/stories/92083",
-        "name": "Interior #92083",
-        "_id": { "$oid": "6482d9f7796ee023eefa3685" }
-      },
-      {
-        "resourceURI": "http://gateway.marvel.com/v1/public/stories/92086",
-        "name": "Hulk (2008) #53",
-        "_id": { "$oid": "6482d9f7796ee023eefa3686" }
-      },
-      {
-        "resourceURI": "http://gateway.marvel.com/v1/public/stories/92087",
-        "name": "Interior #92087",
-        "_id": { "$oid": "6482d9f7796ee023eefa3687" }
-      },
-      {
-        "resourceURI": "http://gateway.marvel.com/v1/public/stories/105929",
-        "name": "cover from Free Comic Book Day 2013 (Avengers/Hulk) (2013) #1",
-        "_id": { "$oid": "6482d9f7796ee023eefa3688" }
-      }
-    ],
-    "returned": { "$numberInt": "7" }
+      "available": 89,
+      "collectionURI": "http://gateway.marvel.com/v1/public/characters/1010354/series",
+      "items": [
+          {
+              "resourceURI": "http://gateway.marvel.com/v1/public/series/36369",
+              "name": "Adam Warlock Omnibus (2023)"
+          }
+      ],
+      "returned": 20
   },
   "events": {
-    "available": { "$numberInt": "0" },
-    "collectionURI": "http://gateway.marvel.com/v1/public/characters/1017100/events",
-    "items": [],
-    "returned": { "$numberInt": "0" },
-    "_id": { "$oid": "6482d9f7796ee023eefa3689" }
+      "available": 8,
+      "collectionURI": "http://gateway.marvel.com/v1/public/characters/1010354/events",
+      "items": [
+          {
+              "resourceURI": "http://gateway.marvel.com/v1/public/events/293",
+              "name": "Annihilation: Conquest"
+          }
+      ],
+      "returned": 8
   },
   "urls": [
-    {
-      "type": "detail",
-      "url": "http://marvel.com/characters/76/a-bomb?utm_campaign=apiRef&utm_source=5a54d958ef4d2c9c1b9a5c4edd12bea2",
-      "_id": { "$oid": "6482d9f7796ee023eefa368a" }
-    },
-    {
-      "type": "comiclink",
-      "url": "http://marvel.com/comics/characters/1017100/a-bomb_has?utm_campaign=apiRef&utm_source=5a54d958ef4d2c9c1b9a5c4edd12bea2",
-      "_id": { "$oid": "6482d9f7796ee023eefa368b" }
-    }
-  ],
-  "__v": { "$numberInt": "0" }
+      {
+          "type": "detail",
+          "url": "http://marvel.com/characters/2854/adam_warlock?utm_campaign=apiRef&utm_source=5a54d958ef4d2c9c1b9a5c4edd12bea2"
+      }
+  
+  ]
 }

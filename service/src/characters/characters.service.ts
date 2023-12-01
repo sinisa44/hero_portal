@@ -48,7 +48,7 @@ export class CharactersService {
 
   const findCharacter = await this.characterModel.findOne({name: createCharacterDto.name});
 
-  if(findCharacter) {
+  if(findCharacter && findCharacter.user_id === sub) {
     throw new ConflictException({error:`${findCharacter?.name} is already saved as favorite `})
   } 
 
