@@ -13,10 +13,7 @@ import {
 } from '@nestjs/common';
 import { CharactersService } from './characters.service';
 import { CreateCharacterDto } from './dto/create-character.dto';
-import { UpdateCharacterDto } from './dto/update-character.dto';
 import { AuthGard } from 'src/users/auth.gard';
-import { Request } from 'express';
-import decodeToken from './lib/decodeToken.lib';
 
 @Controller('characters')
 export class CharactersController {
