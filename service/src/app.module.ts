@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt/dist';
 import { CharactersModule } from './characters/characters.module';
+import { ComicsModule } from './comics/comics.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { CharactersModule } from './characters/characters.module';
     MongooseModule.forRoot(process.env.MONGO_URL),
     UsersModule,
     CharactersModule,
+    ComicsModule,
    ],
   controllers: [AppController],
   providers: [AppService],
