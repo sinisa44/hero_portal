@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateCharacterDto } from './dto/create-character.dto';
 import { UpdateCharacterDto } from './dto/update-character.dto';
 
@@ -43,7 +43,7 @@ export class CharactersService {
   }
 
 
- async create(createCharacterDto: CreateCharacterDto, authorization): Promise<Character>  {
+ async createFavorite(createCharacterDto: CreateCharacterDto, authorization): Promise<Character>  {
   const {sub} = decodeToken(authorization)
 
   const findCharacter = await this.characterModel.findOne({name: createCharacterDto.name});
@@ -68,5 +68,25 @@ export class CharactersService {
 
     return findFavoriteCharacters;
 
+  }
+
+  async removeFavorite(authorization,id): Promise<Character> {
+
+    const findCharacter = await this.characterModel.findById(id);
+
+    if(!findCharacter) {
+      throw new NotFoundException({error:'character not found'})
+    }
+
+    if(findCharacter.user_id === decodeToken(authorization).sub) {
+      await findCharacter.deleteOne()
+    } else {
+      throw new ForbiddenException({error:'you are not allowed to delete this character'})
+    }
+
+
+    
+    return findCharacter
+  
   }
 }

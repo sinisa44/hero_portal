@@ -1,36 +1,62 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards, Headers } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+  UseGuards,
+  Headers,
+} from '@nestjs/common';
 import { CharactersService } from './characters.service';
 import { CreateCharacterDto } from './dto/create-character.dto';
 import { UpdateCharacterDto } from './dto/update-character.dto';
 import { AuthGard } from 'src/users/auth.gard';
-import { Request } from 'express'
+import { Request } from 'express';
 import decodeToken from './lib/decodeToken.lib';
 
 @Controller('characters')
 export class CharactersController {
   constructor(private readonly charactersService: CharactersService) {}
 
-  @Post()
-  create(@Body() createCharacterDto: CreateCharacterDto,@Headers('authorization') authorization: string) {
-    
-    return this.charactersService.create(createCharacterDto, authorization);
-  }
-
+  
   @Get('all/')
-
-  findAll(@Query('limit') limit:number, @Query('offset') offset:number ) {
-    return this.charactersService.findAll({limit, offset});
+  findAll(@Query('limit') limit: number, @Query('offset') offset: number) {
+    return this.charactersService.findAll({ limit, offset });
   }
-
-  @Get(":id")
-  findById(@Param('id') id:number) {
+  
+  @Get(':id')
+  findById(@Param('id') id: number) {
     return this.charactersService.findById(id);
   }
-
+  
   @Get('favorite')
   @UseGuards(AuthGard)
-  findFavorite(@Headers('authorizaton') authorization:string) {
+  findFavorite(@Headers('authorizaton') authorization: string) {
     return this.charactersService.findFavorite(authorization);
   }
+  
+  
+  @Post('favorite')
+  create(
+    @Body() createCharacterDto: CreateCharacterDto,
+    @Headers('authorization') authorization: string,
+  ) {
+    return this.charactersService.createFavorite(
+      createCharacterDto,
+      authorization,
+    );
+  }
 
+
+  @Delete('favorite/:id')
+  @UseGuards(AuthGard)
+  delete(
+    @Param('id') id:number,
+    @Headers('authorization') authorization: string
+  ){
+    return this.charactersService.removeFavorite(authorization, id);
+  }
 }
