@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt/dist';
 import { CharactersModule } from './characters/characters.module';
 import { ComicsModule } from './comics/comics.module';
+import { CreatorsModule } from './creators/creators.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ComicsModule } from './comics/comics.module';
     UsersModule,
     CharactersModule,
     ComicsModule,
+    CreatorsModule,
    ],
   controllers: [AppController],
   providers: [AppService],

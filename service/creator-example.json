@@ -1,0 +1,65 @@
+{
+  "id": 13971,
+  "firstName": "#X",
+  "middleName": "",
+  "lastName": "",
+  "suffix": "",
+  "fullName": "#X",
+  "modified": "2019-12-11T17:21:29-0500",
+  "thumbnail": {
+    "path": "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available",
+    "extension": "jpg"
+  },
+  "resourceURI": "http://gateway.marvel.com/v1/public/creators/13971",
+  "comics": {
+    "available": 4,
+    "collectionURI": "http://gateway.marvel.com/v1/public/creators/13971/comics",
+    "items": [
+      {
+        "resourceURI": "http://gateway.marvel.com/v1/public/comics/4241",
+        "name": "EARTH X TPB [NEW PRINTING] (Trade Paperback)"
+      }
+    ],
+    "returned": 4
+  },
+  "series": {
+    "available": 4,
+    "collectionURI": "http://gateway.marvel.com/v1/public/creators/13971/series",
+    "items": [
+      {
+        "resourceURI": "http://gateway.marvel.com/v1/public/series/378",
+        "name": "Earth X (1999 - 2000)"
+      }
+    ],
+    "returned": 4
+  },
+  "stories": {
+    "available": 4,
+    "collectionURI": "http://gateway.marvel.com/v1/public/creators/13971/stories",
+    "items": [
+      {
+        "resourceURI": "http://gateway.marvel.com/v1/public/stories/24903",
+        "name": "Earth X",
+        "type": "interiorStory"
+      },
+      {
+        "resourceURI": "http://gateway.marvel.com/v1/public/stories/24941",
+        "name": "Earth X Chapter X",
+        "type": "interiorStory"
+      }
+    ],
+    "returned": 4
+  },
+  "events": {
+    "available": 0,
+    "collectionURI": "http://gateway.marvel.com/v1/public/creators/13971/events",
+    "items": [],
+    "returned": 0
+  },
+  "urls": [
+    {
+      "type": "detail",
+      "url": "http://marvel.com/comics/creators/13971/x?utm_campaign=apiRef&utm_source=5a54d958ef4d2c9c1b9a5c4edd12bea2"
+    }
+  ]
+}
