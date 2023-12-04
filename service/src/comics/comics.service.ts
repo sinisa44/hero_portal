@@ -66,4 +66,30 @@ export class ComicsService {
 
     return comic;
   }
+
+  async findFavorite(authorization): Promise<Comic[]> {
+    const { sub } = decodeToken(authorization);
+
+    const findFavoriteComics = await this.comicModel.find({ user_id: sub });
+
+    if (!findFavoriteComics) {
+      throw new NotFoundException({ error: 'no favorite comics' });
+    }
+
+    return findFavoriteComics;
+  }
+
+  async removeFavorite(authorization, id: string | number): Promise<Comic> {
+    const { sub } = decodeToken(authorization);
+
+    const findComic = await this.comicModel.findOne({ user_id: sub, _id: id });
+
+    if (!findComic) {
+      throw new NotFoundException({ error: 'comic not found' });
+    }
+
+    await findComic.deleteOne();
+
+    return findComic;
+  }
 }

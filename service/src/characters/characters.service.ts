@@ -83,9 +83,10 @@ export class CharactersService {
   }
 
   async removeFavorite(authorization, id): Promise<Character> {
+    
     const findCharacter = await this.characterModel.findById(id);
 
-    if (!findCharacter) {
+    if (!findCharacter ) {
       throw new NotFoundException({ error: 'character not found' });
     }
 

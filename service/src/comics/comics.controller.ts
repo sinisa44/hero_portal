@@ -3,11 +3,12 @@ import {
   Get,
   Post,
   Query,
+  Delete,
   Param,
   Body,
   ValidationPipe,
   Headers,
-  UseGuards
+  UseGuards,
 } from '@nestjs/common';
 import { ComicsService } from './comics.service';
 import { CreateComicDto } from './dto/create-comic.dto';
@@ -37,5 +38,14 @@ export class ComicsController {
       createComicDto,
       authorization,
     );
+  }
+
+  @Delete('favorite/:id')
+  @UseGuards(AuthGard)
+  deleteFavorite(
+    @Headers('authorization') authorization: string,
+    @Param('id') id: string,
+  ) {
+    return this.comicsService.removeFavorite(authorization, id);
   }
 }
