@@ -19,24 +19,22 @@ import { AuthGard } from 'src/users/auth.gard';
 export class CharactersController {
   constructor(private readonly charactersService: CharactersService) {}
 
-  
   @Get('all/')
   findAll(@Query('limit') limit: number, @Query('offset') offset: number) {
     return this.charactersService.findAll({ limit, offset });
   }
-  
+
   @Get(':id')
   findById(@Param('id') id: number) {
     return this.charactersService.findById(id);
   }
-  
+
   @Get('favorite')
   @UseGuards(AuthGard)
   findFavorite(@Headers('authorizaton') authorization: string) {
     return this.charactersService.findFavorite(authorization);
   }
-  
-  
+
   @Post('favorite')
   create(
     @Body(ValidationPipe) createCharacterDto: CreateCharacterDto,
@@ -49,13 +47,12 @@ export class CharactersController {
     );
   }
 
-
   @Delete('favorite/:id')
   @UseGuards(AuthGard)
   delete(
-    @Param('id') id:number,
-    @Headers('authorization') authorization: string
-  ){
+    @Param('id') id: number,
+    @Headers('authorization') authorization: string,
+  ) {
     return this.charactersService.removeFavorite(authorization, id);
   }
 }

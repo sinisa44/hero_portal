@@ -1,4 +1,4 @@
-import { IsNumber, IsString, IsArray, ValidateNested, isNumber } from 'class-validator';
+import { IsNumber, IsString,  ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 
