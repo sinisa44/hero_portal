@@ -25,14 +25,21 @@ export class CreatorsController {
 
   @Get(':id')
   findById(@Param('id') id: number) {
-    return this.creatorsService.fetchById(id);
+    return this.creatorsService.fetchById({id});
   }
 
   @Get('favorite/all')
   @UseGuards(AuthGard)
   listAllFavorite(@Headers('authorization') authorization: string) {
-    return this.creatorsService.listAllFavorites(authorization);
+    return this.creatorsService.listAllFavorites({authorization});
   }
+
+  @Get("/favorite/:id")
+  @UseGuards(AuthGard)
+  findFavoriteById(
+    @Param('id') id:string,
+    @Headers('authorization') authorization:string
+  ) {}
 
   @UseGuards(AuthGard)
   @Post('/favorite')
@@ -40,7 +47,7 @@ export class CreatorsController {
     @Body(ValidationPipe) createCreatorDto: CreateCreatorDto,
     @Headers('authorization') authorization: string,
   ) {
-    return this.creatorsService.saveFavorite(authorization, createCreatorDto);
+    return this.creatorsService.saveFavorite({authorization}, createCreatorDto);
   }
 
   @UseGuards(AuthGard)
@@ -49,6 +56,6 @@ export class CreatorsController {
     @Param('id') id: string,
     @Headers('authorization') authorization: string,
   ) {
-    return this.creatorsService.removeFavorite(authorization, id);
+    return this.creatorsService.removeFavorite({authorization, id});
   }
 }

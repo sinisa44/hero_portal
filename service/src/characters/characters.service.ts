@@ -15,6 +15,11 @@ import { Model } from 'mongoose';
 
 import decodeToken from './lib/decodeToken.lib';
 
+interface Param {
+  id?: number | string;
+  authorization?: string;
+}
+
 @Injectable()
 export class CharactersService {
   constructor(
@@ -32,11 +37,11 @@ export class CharactersService {
     return await data.json();
   }
 
-  async findById(id: number): Promise<Character> {
+  async findById(params: Param): Promise<Character> {
     const character = await fetch(
-      `https://gateway.marvel.com/v1/public/characters/${id}${generateMarvelURL(
-        { offset: 0, limit: 1 },
-      )}`,
+      `https://gateway.marvel.com/v1/public/characters/${
+        params.id
+      }${generateMarvelURL({ offset: 0, limit: 1 })}`,
     );
 
     if (!character) {
@@ -48,9 +53,9 @@ export class CharactersService {
 
   async createFavorite(
     createCharacterDto: CreateCharacterDto,
-    authorization,
+    params: Param,
   ): Promise<Character> {
-    const { sub } = decodeToken(authorization);
+    const { sub } = decodeToken(params.authorization);
 
     const findCharacter = await this.characterModel.findOne({
       name: createCharacterDto.name,
@@ -70,8 +75,8 @@ export class CharactersService {
     return character;
   }
 
-  async listAllFavorite(authorization): Promise<Character[]> {
-    const { sub } = decodeToken(authorization);
+  async listAllFavorite(params: Param): Promise<Character[]> {
+    const { sub } = decodeToken(params.authorization);
 
     const findFavoriteCharacters = this.characterModel.find({ user_id: sub });
 
@@ -82,14 +87,29 @@ export class CharactersService {
     return findFavoriteCharacters;
   }
 
-  async removeFavorite(authorization, id): Promise<Character> {
-    const findCharacter = await this.characterModel.findById(id);
+  async findFavoriteById(params: Param): Promise<Character> {
+    const { sub } = decodeToken(params.authorization);
+
+    const character = await this.characterModel.findOne({
+      user_id: sub,
+      _id: params.id ,
+    });
+
+    if (!character) {
+      throw new NotFoundException({ error: 'character not found' });
+    }
+
+    return character;
+  }
+
+  async removeFavorite(params: Param): Promise<Character> {
+    const findCharacter = await this.characterModel.findById(params.id);
 
     if (!findCharacter) {
       throw new NotFoundException({ error: 'character not found' });
     }
 
-    if (findCharacter.user_id === decodeToken(authorization).sub) {
+    if (findCharacter.user_id === decodeToken(params.authorization).sub) {
       await findCharacter.deleteOne();
     } else {
       throw new ForbiddenException({

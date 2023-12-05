@@ -11,6 +11,11 @@ import { InjectModel } from '@nestjs/mongoose';
 import decodeToken from 'src/characters/lib/decodeToken.lib';
 import { CreateCreatorDto } from './dtos/create-creator.dto';
 
+interface Param {
+  id?: number | string;
+  authorization?: string;
+}
+
 @Injectable()
 export class CreatorsService {
   constructor(
@@ -27,9 +32,11 @@ export class CreatorsService {
     return await data.json();
   }
 
-  async fetchById(id: number): Promise<Creator> {
+  async fetchById(params: Param): Promise<Creator> {
     const creator = await fetch(`
-        https://gateway.marvel.com/v1/public/creators/${id}${generateMarvelURL({
+        https://gateway.marvel.com/v1/public/creators/${
+          params.id
+        }${generateMarvelURL({
           limit: 1,
           offset: 0,
         })}
@@ -38,8 +45,8 @@ export class CreatorsService {
     return await creator.json();
   }
 
-  async listAllFavorites(authorization: string): Promise<Creator[]> {
-    const { sub } = decodeToken(authorization);
+  async listAllFavorites(params: Param): Promise<Creator[]> {
+    const { sub } = decodeToken(params.authorization);
 
     const favoriteCreators = await this.creatorModel.find({ user_id: sub });
 
@@ -49,11 +56,24 @@ export class CreatorsService {
     return favoriteCreators;
   }
 
+  async fetchFavoriteById(params: Param) : Promise<Creator>{
+      const {sub} = decodeToken(params.authorization);
+
+      const creator = await this.creatorModel.findOne({user_id: sub, _id:params.id})
+
+      if(!creator) {
+        throw new NotFoundException({error: 'no creator found'})
+      }
+
+      return creator
+  }
+
   async saveFavorite(
-    authorization,
+    
+    params: Param,
     createCreatorDto: CreateCreatorDto,
   ): Promise<Creator> {
-    const { sub } = decodeToken(authorization);
+    const { sub } = decodeToken(params.authorization);
     const findCreator = await this.creatorModel.findOne({
       id: createCreatorDto.id,
       user_id: sub,
@@ -73,10 +93,10 @@ export class CreatorsService {
     }
   }
 
-  async removeFavorite(authorization: string, id: string): Promise<Creator> {
-    const { sub } = decodeToken(authorization);
+  async removeFavorite(params: Param): Promise<Creator> {
+    const { sub } = decodeToken(params.authorization);
     const findCreator = await this.creatorModel.findOne({
-      _id: id,
+      _id: params.id,
       user_id: sub,
     });
 

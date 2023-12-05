@@ -34,6 +34,7 @@ export class ComicsController {
   }
 
   @Get('favorite/:id')
+  @UseGuards(AuthGard)
   findFavoriteById(
     @Headers('authorization') authorization: string,
     @Param('id') id: string,

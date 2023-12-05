@@ -26,13 +26,22 @@ export class CharactersController {
 
   @Get(':id')
   findById(@Param('id') id: number) {
-    return this.charactersService.findById(id);
+    return this.charactersService.findById({ id });
   }
 
   @Get('favorite/all')
   @UseGuards(AuthGard)
   findFavorite(@Headers('authorization') authorization: string) {
-    return this.charactersService.listAllFavorite(authorization);
+    return this.charactersService.listAllFavorite({ authorization });
+  }
+
+  @Get('/favorite/:id')
+  @UseGuards(AuthGard)
+  findFavoriteById(
+    @Headers('authorization') authorization: string,
+    @Param('id') id: string,
+  ) {
+    return this.charactersService.findFavoriteById({authorization, id})
   }
 
   @Post('favorite')
@@ -41,10 +50,9 @@ export class CharactersController {
 
     @Headers('authorization') authorization: string,
   ) {
-    return this.charactersService.createFavorite(
-      createCharacterDto,
+    return this.charactersService.createFavorite(createCharacterDto, {
       authorization,
-    );
+    });
   }
 
   @Delete('favorite/:id')
@@ -53,6 +61,6 @@ export class CharactersController {
     @Param('id') id: number,
     @Headers('authorization') authorization: string,
   ) {
-    return this.charactersService.removeFavorite(authorization, id);
+    return this.charactersService.removeFavorite({ authorization, id });
   }
 }
