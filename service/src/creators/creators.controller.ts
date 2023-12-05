@@ -28,6 +28,12 @@ export class CreatorsController {
     return this.creatorsService.fetchById(id);
   }
 
+  @Get('favorite/all')
+  @UseGuards(AuthGard)
+  listAllFavorite(@Headers('authorization') authorization: string) {
+    return this.creatorsService.listAllFavorites(authorization);
+  }
+
   @UseGuards(AuthGard)
   @Post('/favorite')
   createFavorite(
@@ -35,5 +41,14 @@ export class CreatorsController {
     @Headers('authorization') authorization: string,
   ) {
     return this.creatorsService.saveFavorite(authorization, createCreatorDto);
+  }
+
+  @UseGuards(AuthGard)
+  @Delete('/favorite/:id')
+  deleteFavorite(
+    @Param('id') id: string,
+    @Headers('authorization') authorization: string,
+  ) {
+    return this.creatorsService.removeFavorite(authorization, id);
   }
 }

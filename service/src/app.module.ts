@@ -19,7 +19,7 @@ import { CreatorsModule } from './creators/creators.module';
     JwtModule.register({
       global:true,
       secret: process.env.JWT_SECRET,
-      signOptions:{expiresIn:'2h'}
+      signOptions:{expiresIn:'3h'}
     }),
     MongooseModule.forRoot(process.env.MONGO_URL),
     UsersModule,

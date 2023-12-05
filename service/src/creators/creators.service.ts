@@ -1,4 +1,8 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { MarvelOptions } from 'interfaces/character.interface';
 import generateMarvelURL from 'src/characters/lib/generateMarvleUrl.lib';
 import { Creator } from './schemas/Creator.schema';
@@ -34,6 +38,17 @@ export class CreatorsService {
     return await creator.json();
   }
 
+  async listAllFavorites(authorization: string): Promise<Creator[]> {
+    const { sub } = decodeToken(authorization);
+
+    const favoriteCreators = await this.creatorModel.find({ user_id: sub });
+
+    if (!favoriteCreators) {
+      throw new NotFoundException({ error: 'No favorite creators found' });
+    }
+    return favoriteCreators;
+  }
+
   async saveFavorite(
     authorization,
     createCreatorDto: CreateCreatorDto,
@@ -55,6 +70,22 @@ export class CreatorsService {
       throw new ConflictException({
         error: 'Creator already inserted as favorite',
       });
+    }
+  }
+
+  async removeFavorite(authorization: string, id: string): Promise<Creator> {
+    const { sub } = decodeToken(authorization);
+    const findCreator = await this.creatorModel.findOne({
+      _id: id,
+      user_id: sub,
+    });
+
+    if (!findCreator) {
+      throw new NotFoundException({ error: 'No creator found' });
+    } else {
+      await findCreator.deleteOne();
+
+      return findCreator;
     }
   }
 }

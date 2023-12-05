@@ -29,10 +29,10 @@ export class CharactersController {
     return this.charactersService.findById(id);
   }
 
-  @Get('favorite')
+  @Get('favorite/all')
   @UseGuards(AuthGard)
-  findFavorite(@Headers('authorizaton') authorization: string) {
-    return this.charactersService.findFavorite(authorization);
+  findFavorite(@Headers('authorization') authorization: string) {
+    return this.charactersService.listAllFavorite(authorization);
   }
 
   @Post('favorite')

@@ -11,6 +11,12 @@ import decodeToken from 'src/characters/lib/decodeToken.lib';
 import { InjectModel } from '@nestjs/mongoose';
 import { Comic } from './schemas/comic.schema';
 import { Model } from 'mongoose';
+
+interface ParamInterface {
+  id?: number | string;
+  authorization?: string;
+}
+
 @Injectable()
 export class ComicsService {
   constructor(
@@ -28,9 +34,11 @@ export class ComicsService {
     return await data.json();
   }
 
-  async findById(id: number): Promise<Comic> {
+  async findById(param: ParamInterface): Promise<Comic> {
     const comic = await fetch(
-      `https://gateway.marvel.com/v1/public/comics/${id}${generateMarvelURL({
+      `https://gateway.marvel.com/v1/public/comics/${
+        param.id
+      }${generateMarvelURL({
         offset: 0,
         limit: 1,
       })}`,
@@ -45,9 +53,9 @@ export class ComicsService {
 
   async createFavoriteComic(
     createComicDto: CreateComicDto,
-    authorization,
+    paramInterface: ParamInterface,
   ): Promise<Comic> {
-    const { sub } = decodeToken(authorization);
+    const { sub } = decodeToken(paramInterface.authorization);
 
     const findComic = await this.comicModel.findOne({
       name: createComicDto.title,
@@ -67,8 +75,8 @@ export class ComicsService {
     return comic;
   }
 
-  async findFavorite(authorization): Promise<Comic[]> {
-    const { sub } = decodeToken(authorization);
+  async findAllFavorites(params: ParamInterface): Promise<Comic[]> {
+    const { sub } = decodeToken(params.authorization);
 
     const findFavoriteComics = await this.comicModel.find({ user_id: sub });
 
@@ -79,10 +87,28 @@ export class ComicsService {
     return findFavoriteComics;
   }
 
-  async removeFavorite(authorization, id: string | number): Promise<Comic> {
-    const { sub } = decodeToken(authorization);
+  async findFavoriteById(params: ParamInterface): Promise<Comic> {
+    const { sub } = decodeToken(params.authorization);
 
-    const findComic = await this.comicModel.findOne({ user_id: sub, _id: id });
+    const comic = await this.comicModel.findOne({
+      user_id: sub,
+      _id: params.id,
+    });
+
+    if (!comic) {
+      throw new NotFoundException({ error: 'no comic found' });
+    }
+
+    return comic;
+  }
+
+  async removeFavorite(params: ParamInterface): Promise<Comic> {
+    const { sub } = decodeToken(params.authorization);
+
+    const findComic = await this.comicModel.findOne({
+      user_id: sub,
+      _id: params.id,
+    });
 
     if (!findComic) {
       throw new NotFoundException({ error: 'comic not found' });

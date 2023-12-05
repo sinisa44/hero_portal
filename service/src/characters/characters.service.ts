@@ -70,7 +70,7 @@ export class CharactersService {
     return character;
   }
 
-  async findFavorite(authorization): Promise<Character[]> {
+  async listAllFavorite(authorization): Promise<Character[]> {
     const { sub } = decodeToken(authorization);
 
     const findFavoriteCharacters = this.characterModel.find({ user_id: sub });
@@ -83,10 +83,9 @@ export class CharactersService {
   }
 
   async removeFavorite(authorization, id): Promise<Character> {
-    
     const findCharacter = await this.characterModel.findById(id);
 
-    if (!findCharacter ) {
+    if (!findCharacter) {
       throw new NotFoundException({ error: 'character not found' });
     }
 

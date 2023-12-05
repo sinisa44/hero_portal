@@ -25,7 +25,20 @@ export class ComicsController {
 
   @Get(':id')
   findById(@Param('id') id: number) {
-    return this.comicsService.findById(id);
+    return this.comicsService.findById({id});
+  }
+
+  @Get('favorite/all')
+  findFavorites(@Headers('authorization') authorization: string) {
+    return this.comicsService.findAllFavorites({ authorization });
+  }
+
+  @Get('favorite/:id')
+  findFavoriteById(
+    @Headers('authorization') authorization: string,
+    @Param('id') id: string,
+  ) {
+    return this.comicsService.findFavoriteById({ authorization, id });
   }
 
   @Post('favorite')
@@ -34,10 +47,9 @@ export class ComicsController {
     @Body(ValidationPipe) createComicDto: CreateComicDto,
     @Headers('authorization') authorization: string,
   ) {
-    return this.comicsService.createFavoriteComic(
-      createComicDto,
+    return this.comicsService.createFavoriteComic(createComicDto, {
       authorization,
-    );
+    });
   }
 
   @Delete('favorite/:id')
@@ -46,6 +58,6 @@ export class ComicsController {
     @Headers('authorization') authorization: string,
     @Param('id') id: string,
   ) {
-    return this.comicsService.removeFavorite(authorization, id);
+    return this.comicsService.removeFavorite({ authorization, id });
   }
 }
