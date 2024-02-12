@@ -8,6 +8,7 @@ import { JwtModule } from '@nestjs/jwt/dist';
 import { CharactersModule } from './characters/characters.module';
 import { ComicsModule } from './comics/comics.module';
 import { CreatorsModule } from './creators/creators.module';
+import { UiModule } from './ui/ui.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { CreatorsModule } from './creators/creators.module';
     CharactersModule,
     ComicsModule,
     CreatorsModule,
+    UiModule,
    ],
   controllers: [AppController],
   providers: [AppService],
