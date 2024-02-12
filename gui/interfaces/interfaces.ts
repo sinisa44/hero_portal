@@ -1,4 +1,4 @@
-export interface ICharacter {
+export interface Character {
   id: number;
   name: string;
   description: string;
@@ -102,4 +102,48 @@ export interface Comic {
     items: any[];
     returned: number;
   };
+}
+
+
+export interface Creator {
+  id: number;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  suffix: string;
+  fullName: string;
+  modified: string;
+  thumbnail: {
+    path: string;
+    extension: string;
+  };
+  resourceURI: string;
+  comics: {
+    available: number;
+    collectionURI: string;
+    items: any[]; // You can define a more specific type if needed
+    returned: number;
+  };
+  series: {
+    available: number;
+    collectionURI: string;
+    items: any[]; // You can define a more specific type if needed
+    returned: number;
+  };
+  stories: {
+    available: number;
+    collectionURI: string;
+    items: any[]; // You can define a more specific type if needed
+    returned: number;
+  };
+  events: {
+    available: number;
+    collectionURI: string;
+    items: any[]; // You can define a more specific type if needed
+    returned: number;
+  };
+  urls: {
+    type: string;
+    url: string;
+  }[];
 }
