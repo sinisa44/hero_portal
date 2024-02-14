@@ -18,33 +18,40 @@ export class UiService {
     return `
             https://gateway.marvel.com/v1/public/${model}${generateMarvelURL({
               limit: 1,
-              offset: 0,
+              offset: Math.floor(Math.random() * 40) + 1,
             })}
         `;
   }
 
-  async fetchRandomItems(): Promise<RandomItems | any> {
+  async fetchRandomItems(): Promise<RandomItems> {
     try {
-      const [characterResponse, comicResponse, creatorResponse] = await Promise.all([
-        fetch(this.generateMarvelUrlString('characters')),
-        fetch(this.generateMarvelUrlString('comics')),
-        fetch(this.generateMarvelUrlString('creators')),
-      ]);
-  
+      const [characterResponse, comicResponse, creatorResponse] =
+        await Promise.all([
+          fetch(this.generateMarvelUrlString('characters')),
+          fetch(this.generateMarvelUrlString('comics')),
+          fetch(this.generateMarvelUrlString('creators')),
+        ]);
+
       if (!characterResponse.ok) {
-        throw new Error(`Failed to fetch characters: ${characterResponse.status} - ${characterResponse.statusText}`);
+        throw new Error(
+          `Failed to fetch characters: ${characterResponse.status} - ${characterResponse.statusText}`,
+        );
       }
       if (!comicResponse.ok) {
-        throw new Error(`Failed to fetch comics: ${comicResponse.status} - ${comicResponse.statusText}`);
+        throw new Error(
+          `Failed to fetch comics: ${comicResponse.status} - ${comicResponse.statusText}`,
+        );
       }
       if (!creatorResponse.ok) {
-        throw new Error(`Failed to fetch creators: ${creatorResponse.status} - ${creatorResponse.statusText}`);
+        throw new Error(
+          `Failed to fetch creators: ${creatorResponse.status} - ${creatorResponse.statusText}`,
+        );
       }
-  
+
       const characterData = await characterResponse.json();
       const comicData = await comicResponse.json();
       const creatorData = await creatorResponse.json();
-  
+
       return {
         character: characterData.data,
         comic: comicData.data,

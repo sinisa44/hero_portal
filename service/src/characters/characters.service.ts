@@ -38,17 +38,23 @@ export class CharactersService {
   }
 
   async findById(params: Param): Promise<Character> {
-    const character = await fetch(
+    // console.log(params)
+    const characterResponse = await fetch(
       `https://gateway.marvel.com/v1/public/characters/${
         params.id
       }${generateMarvelURL({ offset: 0, limit: 1 })}`,
     );
 
-    if (!character) {
+    if (!characterResponse) {
       throw new NotFoundException({ error: 'no character found' });
     }
 
-    return await character.json();
+    const characterData = await characterResponse.json();
+    // return await character.json();
+
+    // console.log(characterData)
+    return characterData.data.results[0];
+
   }
 
   async createFavorite(
@@ -75,6 +81,37 @@ export class CharactersService {
     return character;
   }
 
+  async saveFavoriteById(
+    characterId: number,
+    params: Param,
+  ): Promise<Character> {
+    const { sub } = decodeToken(params.authorization);
+
+    console.log(params, characterId)
+
+    const findCharacterInDatabase = await this.characterModel.findOne({
+      id: characterId,
+      user_id: sub,
+    });
+
+    if (findCharacterInDatabase) {
+      throw new ConflictException({
+        error: `${findCharacterInDatabase.name} is already saved as favorite`,
+      });
+    }
+
+    const findCharacter = await this.findById({ id: characterId });
+
+    console.log(findCharacter)
+
+    const newCharacter = await this.characterModel.create({
+      ...findCharacter,
+      user_id: sub,
+    });
+
+    return newCharacter;
+  }
+
   async listAllFavorite(params: Param): Promise<Character[]> {
     const { sub } = decodeToken(params.authorization);
 
@@ -92,7 +129,7 @@ export class CharactersService {
 
     const character = await this.characterModel.findOne({
       user_id: sub,
-      _id: params.id ,
+      _id: params.id,
     });
 
     if (!character) {

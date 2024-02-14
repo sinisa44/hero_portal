@@ -41,8 +41,8 @@ export class CharactersController {
     @Headers('authorization') authorization: string,
     @Param('id') id: string,
   ) {
-    return this.charactersService.findFavoriteById({authorization, id})
-  }
+    return this.charactersService.findFavoriteById({ authorization, id });
+  } 
 
   @Post('favorite')
   create(
@@ -53,6 +53,13 @@ export class CharactersController {
     return this.charactersService.createFavorite(createCharacterDto, {
       authorization,
     });
+  }
+  @Post('favoriteById')
+  createById(
+    @Body('id') id: number,
+    @Headers('authorization') authorization: string,
+  ) {
+    return this.charactersService.saveFavoriteById(id, { authorization });
   }
 
   @Delete('favorite/:id')
