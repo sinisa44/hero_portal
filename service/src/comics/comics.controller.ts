@@ -25,7 +25,7 @@ export class ComicsController {
 
   @Get(':id')
   findById(@Param('id') id: number) {
-    return this.comicsService.findById({id});
+    return this.comicsService.findById({ id });
   }
 
   @Get('favorite/all')
@@ -51,6 +51,15 @@ export class ComicsController {
     return this.comicsService.createFavoriteComic(createComicDto, {
       authorization,
     });
+  }
+
+  @Post('favoriteById')
+  @UseGuards(AuthGard)
+  createById(
+    @Headers('authorization') authorization: string,
+    @Body('id') id: number,
+  ) {
+    return this.comicsService.createFavoriteById({ authorization }, id);
   }
 
   @Delete('favorite/:id')

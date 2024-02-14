@@ -47,12 +47,10 @@ export class CharactersService {
 
     if (!characterResponse) {
       throw new NotFoundException({ error: 'no character found' });
+    
     }
 
     const characterData = await characterResponse.json();
-    // return await character.json();
-
-    // console.log(characterData)
     return characterData.data.results[0];
 
   }

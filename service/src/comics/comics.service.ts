@@ -35,7 +35,7 @@ export class ComicsService {
   }
 
   async findById(param: ParamInterface): Promise<Comic> {
-    const comic = await fetch(
+    const response = await fetch(
       `https://gateway.marvel.com/v1/public/comics/${
         param.id
       }${generateMarvelURL({
@@ -44,11 +44,36 @@ export class ComicsService {
       })}`,
     );
 
-    if (!comic) {
+    if (!response.ok) {
       throw new NotFoundException({ error: 'no comic found' });
     }
+    const comicData = await response.json();
 
-    return await comic.json();
+    return comicData.data.results[0];
+
+  }
+  async createFavoriteById(params: ParamInterface, id: number): Promise<Comic> {
+    const { sub } = decodeToken(params.authorization);
+
+    const checkIfComicIsSaved = await this.comicModel.findOne({
+      id,
+      user_id: sub,
+    });
+
+    if (checkIfComicIsSaved) {
+      throw new ConflictException({
+        error: `${checkIfComicIsSaved.title} is already saved`,
+      });
+    }
+
+    const findComic = await this.findById({ id });
+
+    const newComic = await this.comicModel.create({
+      ...findComic,
+      user_id: sub,
+    });
+
+    return newComic;
   }
 
   async createFavoriteComic(
