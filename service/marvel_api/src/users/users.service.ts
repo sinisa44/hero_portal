@@ -5,7 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CreateUserDto } from './dto/crate-user.dto';
 import { JwtService } from '@nestjs/jwt';
 
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 
 
@@ -19,6 +19,12 @@ export class UsersService {
   ) {}
 
   async signup(createUserDto: CreateUserDto): Promise<User> {
+
+    // return {
+    //  username:"test",
+    //  email:"test",
+    //  password:"test"
+    // }
     const { username, email, password } = createUserDto;
 
     const hashedPassword = await bcrypt.hash(password, 10);

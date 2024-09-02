@@ -1,15 +1,45 @@
 version: '3.8'
 services:
   nestjs:
+    container_name: 'nestjs'
     build:
       context: .
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
+      target: development
     volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-    environment:
-      - NODE_ENV=development
+      - ./marvel_api:/app
+      - /marvel_api/node_modules
+    ports:
+      # - ${APP_PORT}:${APP_PORT}
+      - 3000:3000
+    command: npm run start:dev
     env_file:
-      - .env
+      - ./marvel_api/.env
+    depends_on:
+      - mongo
+    develop:
+      watch:
+        - action: sync
+          path: ./marvel_api
+          target: /app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: /app/package.json
+
+  mongo:
+    image: mongo:latest
+    container_name: 'nest_monog'
+    volumes:
+      - mongod_data_container:/data/db
+    env_file:
+      - ./marvel_api/.env
+    environment:
+      - MONGO_INITIDB_DATABASE=hero_portal
+      - MONGO_INITDB_ROOT_USERNAME=
+      - MONGO_INITDB_ROOT_PASSWORD=
+    ports:
+      # - ${MONGO_PORT}:${MONGO_PORT}
+      - 27017:27017
+
+volumes:
+  mongod_data_container:

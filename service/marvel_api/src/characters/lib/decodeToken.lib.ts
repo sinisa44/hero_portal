@@ -1,13 +1,9 @@
 import * as jwt from 'jsonwebtoken';
-
-
 interface DecodeToken  {
-    
         sub: string
         username: string,
         iat: number,
         exp: number
-      
 }
 
 
