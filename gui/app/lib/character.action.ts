@@ -28,7 +28,9 @@ export const fetchCharacters = async (
       }
     );
     if (!response.ok) {
-      throw new Error("there was an error while fetching characters");
+      throw new Error(
+        `there was an error while fetching characters ${response.status} - ${response.statusText}`
+      );
     }
     const responseData = await response.json();
 
@@ -45,11 +47,24 @@ export const fetchCharacter = async (id: number): Promise<Character> => {
     const response = await fetch(`${URLString}/${id}`);
 
     if (!response.ok) {
-      throw new Error(`there was an error while fetching character`);
+      throw new Error(
+        `there was an error while fetching character ${response.status} - ${response.statusText}`
+      );
     }
     return await response.json();
-  } catch (error) {
-    console.log(error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
     return Promise.reject(error);
   }
 };
+
+
+export const saveFavorite = async(): Promise<Character> => {
+
+
+
+  
+  return Promise.reject();
+}

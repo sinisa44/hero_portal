@@ -104,7 +104,6 @@ export interface Comic {
   };
 }
 
-
 export interface Creator {
   id: number;
   firstName: string;
@@ -146,4 +145,10 @@ export interface Creator {
     type: string;
     url: string;
   }[];
+}
+
+export interface RandomItems {
+  character: Character;
+  creator: Creator;
+  comic: Comic;
 }

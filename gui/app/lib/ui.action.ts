@@ -27,6 +27,10 @@ export const fetchRandomValues = async (): Promise<RandomItemsPayload> => {
       console.log(error.message);
     }
     return Promise.reject(error);
-    // throw error;
+  
   }
 };
+
+// export const fetchRandomCharacters = async() => {}
+// export const fetchRandomComics = async() => {}
+// export const fetchRandomCreators = async() => {}
