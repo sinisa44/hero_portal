@@ -20,11 +20,7 @@ export class UsersService {
 
   async signup(createUserDto: CreateUserDto): Promise<User> {
 
-    // return {
-    //  username:"test",
-    //  email:"test",
-    //  password:"test"
-    // }
+
     const { username, email, password } = createUserDto;
 
     const hashedPassword = await bcrypt.hash(password, 10);
