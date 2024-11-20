@@ -28,6 +28,8 @@ services:
 
   gui:
     container_name: "gui"
+    depends_on:
+      - nestjs
     build:
       context: ./gui
       target: development

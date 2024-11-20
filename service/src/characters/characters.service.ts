@@ -28,6 +28,7 @@ export class CharactersService {
   ) {}
 
   async findAll(marvelOptions: MarvelOptions): Promise<Character[]> {
+    console.log('test 123')
     const data = await fetch(
       `https://gateway.marvel.com/v1/public/characters${generateMarvelURL(
         marvelOptions,
@@ -84,8 +85,6 @@ export class CharactersService {
     params: Param,
   ): Promise<Character> {
     const { sub } = decodeToken(params.authorization);
-
-    console.log(params, characterId)
 
     const findCharacterInDatabase = await this.characterModel.findOne({
       id: characterId,
