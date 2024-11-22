@@ -25,7 +25,7 @@ export class CreatorsService {
 
   async fetchAll(marvelOptions: MarvelOptions): Promise<Creator[]> {
     const data = await fetch(`
-        https://gateway.marvel.com/v1/public/creators${generateMarvelURL(
+       ${process.env.MARVEL_API_URL}/creators${generateMarvelURL(
           marvelOptions,
         )}`);
 
@@ -34,7 +34,7 @@ export class CreatorsService {
 
   async fetchById(params: Param): Promise<Creator> {
     const creator = await fetch(`
-        https://gateway.marvel.com/v1/public/creators/${
+        ${process.env.MARVEL_API_URL}/creators/${
           params.id
         }${generateMarvelURL({
           limit: 1,

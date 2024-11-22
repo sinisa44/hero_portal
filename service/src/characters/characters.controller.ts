@@ -70,4 +70,13 @@ export class CharactersController {
   ) {
     return this.charactersService.removeFavorite({ authorization, id });
   }
+
+  @Get('search/:name')
+  @UseGuards(AuthGard)
+  search(
+      @Param('name') name: string,
+      @Headers('authorization') authorization:string
+  ) {
+    return this.charactersService.search(name);
+  }
 }

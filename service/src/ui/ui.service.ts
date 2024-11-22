@@ -16,7 +16,7 @@ interface RandomItems {
 export class UiService {
   private generateMarvelUrlString(model: string): string {
     return `
-            https://gateway.marvel.com/v1/public/${model}${generateMarvelURL({
+            ${process.env.MARVEL_API_URL}/${model}${generateMarvelURL({
               limit: 1,
               offset: Math.floor(Math.random() * 40) + 1,
             })}

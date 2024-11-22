@@ -28,10 +28,9 @@ export class CharactersService {
   ) {}
 
   async findAll(marvelOptions: MarvelOptions): Promise<Character[]> {
-    console.log('test 123')
     const data = await fetch(
-      `https://gateway.marvel.com/v1/public/characters${generateMarvelURL(
-        marvelOptions,
+      `${process.env.MARVEL_API_URL}/characters${generateMarvelURL(
+        marvelOptions, false
       )}`,
     );
 
@@ -39,21 +38,24 @@ export class CharactersService {
   }
 
   async findById(params: Param): Promise<Character> {
-    // console.log(params)
+    const requestUrl = `${process.env.MARVEL_API_URL}/characters/${
+      params.id
+    }${generateMarvelURL()}`;
+
+    console.log('Request URL:', requestUrl);
     const characterResponse = await fetch(
-      `https://gateway.marvel.com/v1/public/characters/${
+      `${process.env.MARVEL_API_URL}/characters/${
         params.id
-      }${generateMarvelURL({ offset: 0, limit: 1 })}`,
+      }${generateMarvelURL()}`,
     );
+    // console.log(characterResponse)
 
     if (!characterResponse) {
       throw new NotFoundException({ error: 'no character found' });
-    
     }
 
     const characterData = await characterResponse.json();
     return characterData.data.results[0];
-
   }
 
   async createFavorite(
@@ -99,7 +101,7 @@ export class CharactersService {
 
     const findCharacter = await this.findById({ id: characterId });
 
-    console.log(findCharacter)
+    console.log(findCharacter);
 
     const newCharacter = await this.characterModel.create({
       ...findCharacter,
@@ -152,5 +154,18 @@ export class CharactersService {
     }
 
     return findCharacter;
+  }
+
+  async search(name: string): Promise<Character[] | any> {
+
+    console.log(name)
+  
+    const data = await fetch(
+      `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${name}&orderBy=-name&${generateMarvelURL()}`,
+    );
+
+    // return await data;
+
+    return await data.json();
   }
 }

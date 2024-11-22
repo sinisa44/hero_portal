@@ -26,8 +26,9 @@ export class ComicsService {
 
   async findAll(marvelOptions: MarvelOptions): Promise<Comic[]> {
     const data = await fetch(
-      `https://gateway.marvel.com/v1/public/comics${generateMarvelURL(
+      `${process.env.MARVEL_API_URL}/comics${generateMarvelURL(
         marvelOptions,
+        false,
       )}`,
     );
 
@@ -36,12 +37,13 @@ export class ComicsService {
 
   async findById(param: ParamInterface): Promise<Comic> {
     const response = await fetch(
-      `https://gateway.marvel.com/v1/public/comics/${
-        param.id
-      }${generateMarvelURL({
-        offset: 0,
-        limit: 1,
-      })}`,
+      `${process.env.MARVEL_API_URL}/comics/${param.id}${generateMarvelURL(
+        {
+          offset: 0,
+          limit: 1,
+        },
+        false,
+      )}`,
     );
 
     if (!response.ok) {
@@ -50,7 +52,6 @@ export class ComicsService {
     const comicData = await response.json();
 
     return comicData.data.results[0];
-
   }
   async createFavoriteById(params: ParamInterface, id: number): Promise<Comic> {
     const { sub } = decodeToken(params.authorization);
