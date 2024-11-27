@@ -42,7 +42,7 @@ export class CharactersController {
     @Param('id') id: string,
   ) {
     return this.charactersService.findFavoriteById({ authorization, id });
-  } 
+  }
 
   @Post('favorite')
   create(
@@ -74,9 +74,29 @@ export class CharactersController {
   @Get('search/:name')
   @UseGuards(AuthGard)
   search(
-      @Param('name') name: string,
-      @Headers('authorization') authorization:string
+    @Param('name') name: string,
+    @Headers('authorization') authorization: string,
   ) {
     return this.charactersService.search(name);
   }
+
+  @Get('/seed/characters')
+  base(@Headers('authorization') authorization: string)
+  {
+    return this.charactersService.seed(authorization);
+  }
+
+  // @Get('seed')
+  // @UseGuards(AuthGard)
+  // seed(
+  // ) {
+  //   try {
+  //     // console.log('Authorization:', authorization);
+  //     console.log('234');
+  //     return { message: 'Seed function executed successfully' };
+  //   } catch (error) {
+  //     console.error('Error in seed function:', error);
+  //     throw new Error('Internal server error');
+  //   }
+  // }
 }

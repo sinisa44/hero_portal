@@ -30,7 +30,7 @@ export class CharactersService {
   async findAll(marvelOptions: MarvelOptions): Promise<Character[]> {
     const data = await fetch(
       `${process.env.MARVEL_API_URL}/characters${generateMarvelURL(
-        marvelOptions, false
+        marvelOptions,
       )}`,
     );
 
@@ -38,15 +38,10 @@ export class CharactersService {
   }
 
   async findById(params: Param): Promise<Character> {
-    const requestUrl = `${process.env.MARVEL_API_URL}/characters/${
-      params.id
-    }${generateMarvelURL()}`;
-
-    console.log('Request URL:', requestUrl);
     const characterResponse = await fetch(
-      `${process.env.MARVEL_API_URL}/characters/${
-        params.id
-      }${generateMarvelURL()}`,
+      `${process.env.MARVEL_API_URL}/characters/${params.id}${generateMarvelURL(
+        {},
+      )}`,
     );
     // console.log(characterResponse)
 
@@ -100,8 +95,6 @@ export class CharactersService {
     }
 
     const findCharacter = await this.findById({ id: characterId });
-
-    console.log(findCharacter);
 
     const newCharacter = await this.characterModel.create({
       ...findCharacter,
@@ -157,15 +150,56 @@ export class CharactersService {
   }
 
   async search(name: string): Promise<Character[] | any> {
-
-    console.log(name)
-  
     const data = await fetch(
-      `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${name}&orderBy=-name&${generateMarvelURL()}`,
+      `${
+        process.env.MARVEL_API_URL
+      }/characters?nameStartsWith=${name}&orderBy=-name${generateMarvelURL(
+        undefined,
+        true,
+      )}`,
     );
 
-    // return await data;
-
     return await data.json();
+  }
+
+  async seed(authorization?: string) {
+    try {
+      const { sub } = decodeToken(authorization);
+      let offset = 0; // Start from 0 to fetch the first set of results
+      const limit = 100; // Define the limit once
+  
+      while (offset < 1500) {
+        const request = await fetch(
+          `${process.env.MARVEL_API_URL}/characters${generateMarvelURL(
+            { limit, offset },
+            false,
+          )}`,
+        );
+  
+        if (!request.ok) {
+          throw new Error(`Failed to fetch data: ${request.statusText}`);
+        }
+  
+        const response = await request.json();
+  
+        if (!response.data || !response.data.results) {
+          throw new Error('Invalid response structure');
+        }
+  
+        for (let i = 0; i < response.data.results.length; i++) {
+          const characterData = response.data.results[i];
+          const newCharacter = await this.characterModel.create({
+            ...characterData,
+            user_id: sub,
+          });
+  
+          console.log(newCharacter.name);
+        }
+  
+        offset += limit; // Increment by limit to fetch the next set of results
+      }
+    } catch (error) {
+      console.error('Error seeding characters:', error.message);
+    }
   }
 }

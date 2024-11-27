@@ -2,7 +2,7 @@ import { MarvelOptions } from 'interfaces/character.interface';
 import * as crypto from 'crypto';
 
 const generateMarvelURL = (
-  options?: MarvelOptions,
+  options?: MarvelOptions | undefined,
   useAmpersand: boolean = false,
 ): string => {
   const publicKey = process.env.MARVEL_PUBLIC_KEY;
@@ -10,7 +10,7 @@ const generateMarvelURL = (
 
   let timestamps = new Date().getTime();
 
-  console.log(options);
+  console.log('options',options);
 
   const hash = crypto
     .createHash('md5')
