@@ -1,0 +1,67 @@
+version: "3.8"
+services:
+  nestjs:
+    container_name: "nestjs"
+    build:
+      context: ./service
+      target: development
+      dockerfile: Dockerfile
+    volumes:
+      - /service
+      - /service/node_modules
+    ports:
+      - 3001:3001
+    command: npm run start:dev
+    env_file:
+      - /service/.env
+    depends_on:
+      - mongo
+    develop:
+      watch:
+        - action: sync
+          path: ./service
+          target: /app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: /app/package.json
+
+  gui:
+    container_name: "gui"
+    depends_on:
+      - nestjs
+    build:
+      context: ./gui
+      target: development
+      dockerfile: Dockerfile
+    volumes:
+      - /gui
+      - /gui/node_modules
+    ports:
+      - 3000:3000
+    command: npm run dev
+    develop:
+      watch:
+        - path: ./gui
+          action: sync
+          target: ./app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: /app/package.json
+  mongo:
+    image: mongo:latest
+    container_name: "nest_monog"
+    volumes:
+      - mongod_data_container:/data/db
+    env_file:
+      - /service/.env
+    environment:
+      - MONGO_INITIDB_DATABASE=hero_portal
+      - MONGO_INITDB_ROOT_USERNAME=
+      - MONGO_INITDB_ROOT_PASSWORD=
+    ports:
+      - 27017:27017
+
+volumes:
+  mongod_data_container:

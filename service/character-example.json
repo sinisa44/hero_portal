@@ -1,0 +1,51 @@
+{
+  "id": 1010354,
+  "name": "Adam Warlock",
+  "description": "Adam Warlock is an artificially created human who was born in a cocoon at a scientific complex called The Beehive.",
+  "modified": "2013-08-07T13:49:06-0400",
+  "thumbnail": {
+      "path": "http://i.annihil.us/u/prod/marvel/i/mg/a/f0/5202887448860",
+      "extension": "jpg"
+  },
+  "resourceURI": "http://gateway.marvel.com/v1/public/characters/1010354",
+  "comics": {
+      "available": 201,
+      "collectionURI": "http://gateway.marvel.com/v1/public/characters/1010354/comics",
+      "items": [
+          {
+              "resourceURI": "http://gateway.marvel.com/v1/public/comics/105140",
+              "name": "Adam Warlock Omnibus (Trade Paperback)"
+          }
+      ],
+      "returned": 20
+  },
+  "series": {
+      "available": 89,
+      "collectionURI": "http://gateway.marvel.com/v1/public/characters/1010354/series",
+      "items": [
+          {
+              "resourceURI": "http://gateway.marvel.com/v1/public/series/36369",
+              "name": "Adam Warlock Omnibus (2023)"
+          }
+      ],
+      "returned": 20
+  },
+  "events": {
+      "available": 8,
+      "collectionURI": "http://gateway.marvel.com/v1/public/characters/1010354/events",
+      "items": [
+          {
+              "resourceURI": "http://gateway.marvel.com/v1/public/events/293",
+              "name": "Annihilation: Conquest"
+          }
+      ],
+      "returned": 8
+  },
+  "urls": [
+      {
+          "type": "detail",
+          "url": "http://marvel.com/characters/2854/adam_warlock?utm_campaign=apiRef&utm_source=5a54d958ef4d2c9c1b9a5c4edd12bea2"
+      }
+  
+  ]
+}

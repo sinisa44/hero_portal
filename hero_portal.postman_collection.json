@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "fa209fac-948d-4f27-b048-e48742d01fb2",
+		"name": "hero_portal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "8197828"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"Simke\",\r\n    \"email\":\"test@mail.com\",\r\n    \"password\":\"simke123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/users/create"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"email\":\"test@mail.com\",\r\n    \"password\":\"simke123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/users/login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "characters",
+			"item": [
+				{
+					"name": "/characters/all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/characters/all?offset=1&limit=1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"characters",
+								"all"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/characters/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3000/characters/1017100"
+					},
+					"response": []
+				},
+				{
+					"name": "/characters/favorite/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTY4NTU1NDM1OGYzN2M4NWFmYWEzZjgiLCJ1c2VybmFtZSI6InRlc3RAbWFpbC5jb20iLCJpYXQiOjE3MDE0MTU0NTIsImV4cCI6MTcwMTQyMjY1Mn0.G0e6shiueik9feluiM88eap90z4SpR_0VbyiKg_nFyQ"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:3000/characters/favorite/656857dbc71dc3282344dcb0"
+					},
+					"response": []
+				},
+				{
+					"name": "/characters/favorite",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTZjNDIzOWU2YjZmNjgyZmQ5YjNmYjgiLCJ1c2VybmFtZSI6InRlc3RAbWFpbC5jb20iLCJpYXQiOjE3MDE1OTM3MjgsImV4cCI6MTcwMTYwMDkyOH0.yCo_LIg5D_N5EoLU6Pm51YtHldVDO53jGBPHvkOA-VQ"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1017100,\r\n    \"name\": \"A-Bomb (HAS)\",\r\n    \"description\": \"Rick Jones has been Hulk's best bud since day one, but now he's more than a friend...he's a teammate! Transformed by a Gamma energy explosion, A-Bomb's thick, armored skin is just as strong and powerful as it is blue. And when he curls into action, he uses it like a giant bowling ball of destruction! \",\r\n    \"modified\": \"2013-09-18T15:54:04-0400\",\r\n    \"thumbnail\": {\r\n        \"path\": \"http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16\",\r\n        \"extension\": \"jpg\"\r\n    },\r\n    \"resourceURI\": \"http://gateway.marvel.com/v1/public/characters/1017100\",\r\n    \"comics\": {\r\n        \"available\": 4,\r\n        \"collectionURI\": \"http://gateway.marvel.com/v1/public/characters/1017100/comics\",\r\n        \"items\": [\r\n            {\r\n                \"resourceURI\": \"http://gateway.marvel.com/v1/public/comics/47176\",\r\n                \"name\": \"FREE COMIC BOOK DAY 2013 1 (2013) #1\"\r\n            },\r\n            {\r\n                \"resourceURI\": \"http://gateway.marvel.com/v1/public/comics/40632\",\r\n                \"name\": \"Hulk (2008) #53\"\r\n            },\r\n            {\r\n                \"resourceURI\": \"http://gateway.marvel.com/v1/public/comics/40630\",\r\n                \"name\": \"Hulk (2008) #54\"\r\n            },\r\n            {\r\n                \"resourceURI\": \"http://gateway.marvel.com/v1/public/comics/40628\",\r\n                \"name\": \"Hulk (2008) #55\"\r\n            }\r\n        ],\r\n        \"returned\": 4\r\n    },\r\n    \"series\": {\r\n        \"available\": 2,\r\n        \"collectionURI\": \"http://gateway.marvel.com/v1/public/characters/1017100/series\",\r\n        \"items\": [\r\n            {\r\n                \"resourceURI\": \"http://gateway.marvel.com/v1/public/series/17765\",\r\n                \"name\": \"FREE COMIC BOOK DAY 2013 1 (2013)\"\r\n            },\r\n            {\r\n                \"resourceURI\": \"http://gateway.marvel.com/v1/public/series/3374\",\r\n                \"name\": \"Hulk (2008 - 2012)\"\r\n            }\r\n        ],\r\n        \"returned\": 2\r\n    },\r\n    \"stories\": {\r\n        \"available\": 7,\r\n        \"collectionURI\": \"http://gateway.marvel.com/v1/public/characters/1017100/stories\",\r\n        \"items\": [\r\n            {\r\n                \"resourceURI\": \"http://gateway.marvel.com/v1/public/stories/92078\",\r\n                \"name\": \"Hulk (2008) #55\",\r\n                \"type\": \"cover\"\r\n            },\r\n            {\r\n                \"resourceURI\": \"http://gateway.marvel.com/v1/public/stories/92079\",\r\n                \"name\": \"Interior #92079\",\r\n                \"type\": \"interiorStory\"\r\n            },\r\n            {\r\n                \"resourceURI\": \"http://gateway.marvel.com/v1/public/stories/92082\",\r\n                \"name\": \"Hulk (2008) #54\",\r\n                \"type\": \"cover\"\r\n            },\r\n            {\r\n                \"resourceURI\": \"http://gateway.marvel.com/v1/public/stories/92083\",\r\n                \"name\": \"Interior #92083\",\r\n                \"type\": \"interiorStory\"\r\n            },\r\n            {\r\n                \"resourceURI\": \"http://gateway.marvel.com/v1/public/stories/92086\",\r\n                \"name\": \"Hulk (2008) #53\",\r\n                \"type\": \"cover\"\r\n            },\r\n            {\r\n                \"resourceURI\": \"http://gateway.marvel.com/v1/public/stories/92087\",\r\n                \"name\": \"Interior #92087\",\r\n                \"type\": \"interiorStory\"\r\n            },\r\n            {\r\n                \"resourceURI\": \"http://gateway.marvel.com/v1/public/stories/105929\",\r\n                \"name\": \"cover from Free Comic Book Day 2013 (Avengers/Hulk) (2013) #1\",\r\n                \"type\": \"cover\"\r\n            }\r\n        ],\r\n        \"returned\": 7\r\n    },\r\n    \"events\": {\r\n        \"available\": 0,\r\n        \"collectionURI\": \"http://gateway.marvel.com/v1/public/characters/1017100/events\",\r\n        \"items\": [],\r\n        \"returned\": 0\r\n    },\r\n    \"urls\": [\r\n        {\r\n            \"type\": \"detail\",\r\n            \"url\": \"http://marvel.com/characters/76/a-bomb?utm_campaign=apiRef&utm_source=5a54d958ef4d2c9c1b9a5c4edd12bea2\"\r\n        },\r\n        {\r\n            \"type\": \"comiclink\",\r\n            \"url\": \"http://marvel.com/comics/characters/1017100/a-bomb_has?utm_campaign=apiRef&utm_source=5a54d958ef4d2c9c1b9a5c4edd12bea2\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/characters/favorite"
+					},
+					"response": []
+				},
+				{
+					"name": "/characters/favorite",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTZjNDIzOWU2YjZmNjgyZmQ5YjNmYjgiLCJ1c2VybmFtZSI6InRlc3RAbWFpbC5jb20iLCJpYXQiOjE3MDE2OTQwODIsImV4cCI6MTcwMTcwMTI4Mn0.uEjYsTLEFtMYJTa-ilfyYlAPEPpxe9fAejxtHCi5rtE"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3000/characters/favorite/all"
+					},
+					"response": []
+				},
+				{
+					"name": "/characters/favorite/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTZjNDIzOWU2YjZmNjgyZmQ5YjNmYjgiLCJ1c2VybmFtZSI6InRlc3RAbWFpbC5jb20iLCJpYXQiOjE3MDE3NjAwMTksImV4cCI6MTcwMTc3MDgxOX0.vjHKNN6uGgdh8mydPvB3BThhpWRzqj2f0lObOdnlXTE"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3000/characters/favorite/656c42b2e6b6f682fd9b3fbc"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comics",
+			"item": [
+				{
+					"name": "/comics/all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/comics/all?limit=1&offset=10",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"comics",
+								"all"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1"
+								},
+								{
+									"key": "offset",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/comis/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3000/comics/331"
+					},
+					"response": []
+				},
+				{
+					"name": "/favorite",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTZjNDIzOWU2YjZmNjgyZmQ5YjNmYjgiLCJ1c2VybmFtZSI6InRlc3RAbWFpbC5jb20iLCJpYXQiOjE3MDE2ODU3MDAsImV4cCI6MTcwMTY5MjkwMH0.0fHInDLA7VYE2lTS4k3_xJCbdxbt9u9exfv3zUXCo-I"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 331,\r\n    \"digitalId\": 0,\r\n    \"title\": \"Gun Theory (2003) #4\",\r\n    \"issueNumber\": 4,\r\n    \"variantDescription\": \"\",\r\n    \"description\": \"\",\r\n    \"modified\": \"-0001-11-30T00:00:00-0500\",\r\n    \"isbn\": \"\",\r\n    \"upc\": \"5960605468-00111\",\r\n    \"diamondCode\": \"\",\r\n    \"ean\": \"\",\r\n    \"issn\": \"\",\r\n    \"format\": \"Comic\",\r\n    \"pageCount\": 0,\r\n    \"textObjects\": [\r\n        {\r\n            \"type\": \"issue_solicit_text\",\r\n            \"language\": \"en-us\",\r\n            \"text\": \"The phone rings, and killer-for-hire Harvey embarks on another hit. But nothing's going right this job. There's little room for error in the business of killing - so what happens when one occurs?\\r\\n32 PGS./ PARENTAL ADVISORY ...$2.50\"\r\n        }\r\n    ],\r\n    \"resourceURI\": \"http://gateway.marvel.com/v1/public/comics/331\",\r\n    \"urls\": [\r\n        {\r\n            \"type\": \"detail\",\r\n            \"url\": \"http://marvel.com/comics/issue/331/gun_theory_2003_4?utm_campaign=apiRef&utm_source=5a54d958ef4d2c9c1b9a5c4edd12bea2\"\r\n        }\r\n    ],\r\n    \"series\": {\r\n        \"resourceURI\": \"http://gateway.marvel.com/v1/public/series/649\",\r\n        \"name\": \"Gun Theory (2003)\"\r\n    },\r\n    \"variants\": [],\r\n    \"collections\": [],\r\n    \"collectedIssues\": [],\r\n    \"dates\": [\r\n        {\r\n            \"type\": \"onsaleDate\",\r\n            \"date\": \"2029-12-31T00:00:00-0500\"\r\n        },\r\n        {\r\n            \"type\": \"focDate\",\r\n            \"date\": \"-0001-11-30T00:00:00-0500\"\r\n        }\r\n    ],\r\n    \"prices\": [\r\n        {\r\n            \"type\": \"printPrice\",\r\n            \"price\": 2.5\r\n        }\r\n    ],\r\n    \"thumbnail\": {\r\n        \"path\": \"http://i.annihil.us/u/prod/marvel/i/mg/c/60/4bc69f11baf75\",\r\n        \"extension\": \"jpg\"\r\n    },\r\n    \"images\": [\r\n        {\r\n            \"path\": \"http://i.annihil.us/u/prod/marvel/i/mg/c/60/4bc69f11baf75\",\r\n            \"extension\": \"jpg\"\r\n        }\r\n    ],\r\n    \"creators\": {\r\n        \"available\": 0,\r\n        \"collectionURI\": \"http://gateway.marvel.com/v1/public/comics/331/creators\",\r\n        \"items\": [],\r\n        \"returned\": 0\r\n    },\r\n    \"characters\": {\r\n        \"available\": 0,\r\n        \"collectionURI\": \"http://gateway.marvel.com/v1/public/comics/331/characters\",\r\n        \"items\": [],\r\n        \"returned\": 0\r\n    },\r\n    \"stories\": {\r\n        \"available\": 2,\r\n        \"collectionURI\": \"http://gateway.marvel.com/v1/public/comics/331/stories\",\r\n        \"items\": [\r\n            {\r\n                \"resourceURI\": \"http://gateway.marvel.com/v1/public/stories/2263\",\r\n                \"name\": \"Interior #2263\",\r\n                \"type\": \"interiorStory\"\r\n            },\r\n            {\r\n                \"resourceURI\": \"http://gateway.marvel.com/v1/public/stories/65423\",\r\n                \"name\": \"GUN THEORY 4 cover\",\r\n                \"type\": \"cover\"\r\n            }\r\n        ],\r\n        \"returned\": 2\r\n    },\r\n    \"events\": {\r\n        \"available\": 0,\r\n        \"collectionURI\": \"http://gateway.marvel.com/v1/public/comics/331/events\",\r\n        \"items\": [],\r\n        \"returned\": 0\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/comics/favorite"
+					},
+					"response": []
+				},
+				{
+					"name": "/favorite/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTZjNDIzOWU2YjZmNjgyZmQ5YjNmYjgiLCJ1c2VybmFtZSI6InRlc3RAbWFpbC5jb20iLCJpYXQiOjE3MDE2ODU3MDAsImV4cCI6MTcwMTY5MjkwMH0.0fHInDLA7VYE2lTS4k3_xJCbdxbt9u9exfv3zUXCo-I"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:3000/comics/favorite/656daafae0060b076047113a"
+					},
+					"response": []
+				},
+				{
+					"name": "favorite/all",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "/favorite/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTZjNDIzOWU2YjZmNjgyZmQ5YjNmYjgiLCJ1c2VybmFtZSI6InRlc3RAbWFpbC5jb20iLCJpYXQiOjE3MDE3NjAwMTksImV4cCI6MTcwMTc3MDgxOX0.vjHKNN6uGgdh8mydPvB3BThhpWRzqj2f0lObOdnlXTE"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3000/comics/favorite/656ecefda3bdaa09bbe70f28"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "creators",
+			"item": [
+				{
+					"name": "/creators/all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/creators/all?limit=1&offset=1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"creators",
+								"all"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1"
+								},
+								{
+									"key": "offset",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/creaators/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3000/creators/13971"
+					},
+					"response": []
+				},
+				{
+					"name": "/creators/favorite",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTZjNDIzOWU2YjZmNjgyZmQ5YjNmYjgiLCJ1c2VybmFtZSI6InRlc3RAbWFpbC5jb20iLCJpYXQiOjE3MDE2ODU3MDAsImV4cCI6MTcwMTY5MjkwMH0.0fHInDLA7VYE2lTS4k3_xJCbdxbt9u9exfv3zUXCo-I"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\r\n                \"id\": 13971,\r\n                \"firstName\": \"#X\",\r\n                \"middleName\": \"\",\r\n                \"lastName\": \"\",\r\n                \"suffix\": \"\",\r\n                \"fullName\": \"#X\",\r\n                \"modified\": \"2019-12-11T17:21:29-0500\",\r\n                \"thumbnail\": {\r\n                    \"path\": \"http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available\",\r\n                    \"extension\": \"jpg\"\r\n                },\r\n                \"resourceURI\": \"http://gateway.marvel.com/v1/public/creators/13971\",\r\n                \"comics\": {\r\n                    \"available\": 4,\r\n                    \"collectionURI\": \"http://gateway.marvel.com/v1/public/creators/13971/comics\",\r\n                    \"items\": [\r\n                        {\r\n                            \"resourceURI\": \"http://gateway.marvel.com/v1/public/comics/4241\",\r\n                            \"name\": \"EARTH X TPB [NEW PRINTING] (Trade Paperback)\"\r\n                        },\r\n                        {\r\n                            \"resourceURI\": \"http://gateway.marvel.com/v1/public/comics/8547\",\r\n                            \"name\": \"Earth X (1999) #13\"\r\n                        },\r\n                        {\r\n                            \"resourceURI\": \"http://gateway.marvel.com/v1/public/comics/69274\",\r\n                            \"name\": \"Paradise X (2002)\"\r\n                        },\r\n                        {\r\n                            \"resourceURI\": \"http://gateway.marvel.com/v1/public/comics/11901\",\r\n                            \"name\": \"Universe X (2000)\"\r\n                        }\r\n                    ],\r\n                    \"returned\": 4\r\n                },\r\n                \"series\": {\r\n                    \"available\": 4,\r\n                    \"collectionURI\": \"http://gateway.marvel.com/v1/public/creators/13971/series\",\r\n                    \"items\": [\r\n                        {\r\n                            \"resourceURI\": \"http://gateway.marvel.com/v1/public/series/378\",\r\n                            \"name\": \"Earth X (1999 - 2000)\"\r\n                        },\r\n                        {\r\n                            \"resourceURI\": \"http://gateway.marvel.com/v1/public/series/1806\",\r\n                            \"name\": \"EARTH X TPB [NEW PRINTING] (2006)\"\r\n                        },\r\n                        {\r\n                            \"resourceURI\": \"http://gateway.marvel.com/v1/public/series/2059\",\r\n                            \"name\": \"Paradise X (2002 - 2003)\"\r\n                        },\r\n                        {\r\n                            \"resourceURI\": \"http://gateway.marvel.com/v1/public/series/2085\",\r\n                            \"name\": \"Universe X (2000 - 2001)\"\r\n                        }\r\n                    ],\r\n                    \"returned\": 4\r\n                },\r\n                \"stories\": {\r\n                    \"available\": 4,\r\n                    \"collectionURI\": \"http://gateway.marvel.com/v1/public/creators/13971/stories\",\r\n                    \"items\": [\r\n                        {\r\n                            \"resourceURI\": \"http://gateway.marvel.com/v1/public/stories/24903\",\r\n                            \"name\": \"Earth X\",\r\n                            \"type\": \"interiorStory\"\r\n                        },\r\n                        {\r\n                            \"resourceURI\": \"http://gateway.marvel.com/v1/public/stories/24941\",\r\n                            \"name\": \"Earth X Chapter X\",\r\n                            \"type\": \"interiorStory\"\r\n                        },\r\n                        {\r\n                            \"resourceURI\": \"http://gateway.marvel.com/v1/public/stories/25632\",\r\n                            \"name\": \"interior X\",\r\n                            \"type\": \"interiorStory\"\r\n                        },\r\n                        {\r\n                            \"resourceURI\": \"http://gateway.marvel.com/v1/public/stories/152331\",\r\n                            \"name\": \"story from Paradise X (2003) #X\",\r\n                            \"type\": \"interiorStory\"\r\n                        }\r\n                    ],\r\n                    \"returned\": 4\r\n                },\r\n                \"events\": {\r\n                    \"available\": 0,\r\n                    \"collectionURI\": \"http://gateway.marvel.com/v1/public/creators/13971/events\",\r\n                    \"items\": [],\r\n                    \"returned\": 0\r\n                },\r\n                \"urls\": [\r\n                    {\r\n                        \"type\": \"detail\",\r\n                        \"url\": \"http://marvel.com/comics/creators/13971/x?utm_campaign=apiRef&utm_source=5a54d958ef4d2c9c1b9a5c4edd12bea2\"\r\n                    }\r\n                ]\r\n            }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/creators/favorite"
+					},
+					"response": []
+				},
+				{
+					"name": "/creators/favorite/{id}",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTZjNDIzOWU2YjZmNjgyZmQ5YjNmYjgiLCJ1c2VybmFtZSI6InRlc3RAbWFpbC5jb20iLCJpYXQiOjE3MDE2OTQwODIsImV4cCI6MTcwMTcwMTI4Mn0.uEjYsTLEFtMYJTa-ilfyYlAPEPpxe9fAejxtHCi5rtE"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:3000/creators/favorite/656dc276fd1e978ad25b63ce"
+					},
+					"response": []
+				},
+				{
+					"name": "/creators/favorite/all",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTZjNDIzOWU2YjZmNjgyZmQ5YjNmYjgiLCJ1c2VybmFtZSI6InRlc3RAbWFpbC5jb20iLCJpYXQiOjE3MDE3NjAwMTksImV4cCI6MTcwMTc3MDgxOX0.vjHKNN6uGgdh8mydPvB3BThhpWRzqj2f0lObOdnlXTE"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "localhost:3000/creators/favorite/all"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
